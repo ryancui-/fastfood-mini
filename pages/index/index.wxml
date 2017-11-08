@@ -1,4 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-
+  <view class="page-body">
+    <view class="group-item"
+          wx:for="{{groups}}"
+          wx:for-item="group">
+      <view class="group-row">
+        <image class="group-avatar" src="{{group.avatar_url}}"></image>
+        <text class="group-composer-name">{{group.composer.nickname}}</text>
+        <text class="group-total-price">￥{{group.totalPrice}}</text>
+        <text class="group-status">征集中</text>
+      </view>
+      <view class="group-row">
+        {{group.dueTime}}
+      </view>
+    </view>
+  </view>
+  <view class="page-foot">
+    <button type="primary">我要发起</button>
+  </view>
 </view>
