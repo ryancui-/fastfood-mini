@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "所有订单团"
+  "navigationBarTitleText": "所有订单团",
+  "enablePullDownRefresh": true
 }

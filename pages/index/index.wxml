@@ -15,6 +15,7 @@
       </view>
     </view>
   </view>
+
   <view class="page-foot">
     <button type="primary">我要发起</button>
   </view>

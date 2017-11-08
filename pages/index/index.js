@@ -7,6 +7,12 @@ Page({
   data: {
     groups: []
   },
+  onPullDownRefresh: function () {
+    console.log('refresh group list');
+    setTimeout(() => {
+      wx.stopPullDownRefresh();
+    }, 1000);
+  },
   onLoad: function () {
     this.setData({
       groups: new Array(4).fill({

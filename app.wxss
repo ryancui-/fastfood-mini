@@ -2,7 +2,7 @@
 page {
   background-color: #F8F8F8;
   height: 100%;
-  font-size: 32 rpx;
+  font-size: 32rpx;
 }
 
 .container {
@@ -11,7 +11,7 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 20 rpx;
+  padding: 20rpx;
   box-sizing: border-box;
 }
 
