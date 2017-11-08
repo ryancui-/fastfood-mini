@@ -1,25 +1,31 @@
 //app.js
+const host = require('./config').host;
+
 App({
   onLaunch: function () {
+    const that = this;
+
     // 检查用户登录态是否过期，过期了重新登录
     wx.checkSession({
       success: () => {
         //session 未过期，并且在本生命周期一直有效
-        this.globalData.token = wx.getStorageSync('token');
-        this.globalData.userInfo = wx.getStorageSync('userInfo');
+        console.log('Session valid.');
+        that.globalData.token = wx.getStorageSync('token');
+        that.globalData.userInfo = wx.getStorageSync('userInfo');
       },
       fail: () => {
-        this.initLoginState();
+        that.initLoginState();
       }
     });
-    
   },
   globalData: {
     token: '',
     userInfo: null
   },
   // 重新登录
-  initLoginState: () => {
+  initLoginState: function () {
+    const that = this;
+
     // 登录
     wx.login({
       success: res => {
@@ -28,7 +34,7 @@ App({
           success: fullUserInfo => {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
             wx.request({
-              url: 'http://127.0.0.1:8360/api/auth/loginwx',
+              url: `${host}/api/auth/loginwx`,
               method: 'POST',
               data: {
                 code: res.code,
@@ -37,8 +43,8 @@ App({
               success: ({data}) => {
                 wx.setStorageSync('token', data.data.token);
                 wx.setStorageSync('userInfo', data.data.userInfo);
-                this.globalData.token = data.data.token;
-                this.globalData.userInfo = data.data.userInfo;
+                that.globalData.token = data.data.token;
+                that.globalData.userInfo = data.data.userInfo;
               }
             });
           },
@@ -49,7 +55,5 @@ App({
         });
       }
     });
-
-    
   }
-})
+});
