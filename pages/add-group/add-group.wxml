@@ -1,0 +1,33 @@
+<!--add-group.wxml-->
+
+<view class="container">
+  <view class="page-body">
+    <view class="weui-cells__title">订单团信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">订单团名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{groupForm.name}}" bindinput="onInputChange"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">截止时间</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="time" value="{{groupForm.dueTime}}" start="{{now}}" bindchange="onDateChange">
+            <view class="weui-input">{{groupForm.dueTime}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-foot">
+    <button type="primary" bindtap="confirm">确定</button>
+  </view>
+</view>
+
+

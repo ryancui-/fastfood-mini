@@ -17,6 +17,6 @@
   </view>
 
   <view class="page-foot">
-    <button type="primary">我要发起</button>
+    <button type="primary" bindtap="navigateToAddGroup">我要发起</button>
   </view>
 </view>
