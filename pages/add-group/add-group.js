@@ -27,8 +27,6 @@ Page({
         name: formatDate(today) + ' 订单团'
       }
     });
-
-    console.log(this.data.groupForm);
   },
 
   /**
@@ -59,27 +57,6 @@ Page({
   
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
-
   onInputChange: function (e) {
     this.setData({
       'groupForm.name': e.detail.value
@@ -96,8 +73,9 @@ Page({
   confirm: function () {
     console.log(this.data.groupForm);
 
-    // wx.navigateTo({
-    //
-    // })
+    const id = 1;
+    wx.navigateTo({
+      url: '/pages/group-detail/group-detail?id=' + id
+    });
   }
 })

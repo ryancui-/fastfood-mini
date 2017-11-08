@@ -1,0 +1,25 @@
+<!--pages/group-detail/group-detail.wxml-->
+<view class="container">
+  <view class="owner-panel" wx:if="{{isOwner}}">
+    <button type="primary" class="owner-btn" bindtap="setGroupFinish">完成此团</button>
+    <button type="warn" class="owner-btn" bindtap="setGroupCancel">取消此团</button>
+  </view>
+
+  <view class="page-body">
+    <view class="order-item"
+          wx:for="{{orders}}"
+          wx:for-item="order"
+          data-order="{{order}}"
+          bindtap="removeOrder">
+      <view class="order-row">
+        <image class="order-avatar" src="{{order.avatar_url}}"></image>
+        <text class="order-product-name">{{order.product_name}}</text>
+        <text class="order-total-price">￥{{order.total_price}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-foot" wx:if="{{!expired}}">
+    <button type="primary" bindtap="navigateToAddOrder">看看有啥吃</button>
+  </view>
+</view>
