@@ -7,12 +7,6 @@ Page({
   data: {
     groups: []
   },
-  onPullDownRefresh: function () {
-    console.log('refresh group list');
-    setTimeout(() => {
-      wx.stopPullDownRefresh();
-    }, 1000);
-  },
   onLoad: function () {
     wx.showLoading({
       title: '加载中',
@@ -22,6 +16,7 @@ Page({
     setTimeout(() => {
       this.setData({
         groups: new Array(4).fill({
+          id: 1,
           composer: {
             nickname: 'DeLock'
           },
@@ -37,6 +32,13 @@ Page({
   navigateToAddGroup: function () {
     wx.navigateTo({
       url: '/pages/add-group/add-group'
+    });
+  },
+  navigateToGroup: function (e) {
+    const group = e.currentTarget.dataset.group;
+
+    wx.navigateTo({
+      url: '/pages/group-detail/group-detail?id=' + group.id
     });
   }
 })

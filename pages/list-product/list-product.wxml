@@ -1,0 +1,16 @@
+<!--pages/list-product/list-product.wxml-->
+<view class="container">
+  <view class="page-body">
+    <view class="product-item"
+          wx:for="{{products}}"
+          wx:for-item="product"
+          data-product="{{product}}"
+          bindtap="selectProduct">
+      <view class="product-row">
+        <text class="product-name">{{product.name}}</text>
+        <text class="product-price">￥{{product.price}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+

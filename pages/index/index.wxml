@@ -3,7 +3,9 @@
   <view class="page-body">
     <view class="group-item"
           wx:for="{{groups}}"
-          wx:for-item="group">
+          wx:for-item="group"
+          data-group="{{group}}"
+          bindtap="navigateToGroup">
       <view class="group-row">
         <image class="group-avatar" src="{{group.avatar_url}}"></image>
         <text class="group-composer-name">{{group.composer.nickname}}</text>

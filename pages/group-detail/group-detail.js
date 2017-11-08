@@ -98,7 +98,7 @@ Page({
     wx.showModal({
       title: '提示',
       content: `是否从该团中删除${selectOrder.product_name}`,
-      success: function(res) {
+      success: (res) => {
         if (res.confirm) {
           console.log('用户点击确定')
         } else if (res.cancel) {
@@ -120,6 +120,8 @@ Page({
 
   // 跳转到添加订单页面
   navigateToAddOrder: function () {
-
+    wx.navigateTo({
+      url: '/pages/list-product/list-product?groupId=' + this.data.groupId
+    });
   }
 })
