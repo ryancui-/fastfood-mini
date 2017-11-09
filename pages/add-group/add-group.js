@@ -1,6 +1,9 @@
 // add-group.js
 const formatHHmm = require('../../utils/util').formatHHmm;
 const formatDate = require('../../utils/util').formatDate;
+const formatTime = require('../../utils/util').formatTime;
+const host = require('../../config').host;
+const app = getApp();
 
 Page({
 
@@ -9,7 +12,7 @@ Page({
    */
   data: {
     groupForm: {
-      name: '111',
+      name: '',
       dueTime: null
     },
     now: ''
@@ -24,7 +27,7 @@ Page({
       now: formatHHmm(today),
       groupForm: {
         dueTime: formatHHmm(today),
-        name: formatDate(today) + ' 订单团'
+        name: this.generateGroupName()
       }
     });
   },
@@ -69,13 +72,40 @@ Page({
     });
   },
 
+  // 生成订单团名称
+  generateGroupName: function () {
+    return formatTime(new Date()).substr(0, 16) + ' 团';
+  },
+
   // 确认新建订单团
   confirm: function () {
-    console.log(this.data.groupForm);
+    const query = {
+      groupName: this.data.groupForm.name
+    };
 
-    const id = 1;
-    wx.navigateTo({
-      url: '/pages/group-detail/group-detail?id=' + id
+    query.dueTime = formatDate(new Date()) + ' ' + this.data.groupForm.dueTime + ':00';
+
+    wx.showLoading({
+      mask: true,
+      title: '建团中...'
     });
+
+    wx.request({
+      url: `${host}/api/group/add`,
+      method: 'POST',
+      data: query,
+      header: {
+        'authorization': app.globalData.token
+      },
+      success: ({data}) => {
+        wx.hideLoading();
+
+        wx.navigateTo({
+          url: '/pages/group-detail/group-detail?id=' + data.data
+        });
+      }
+    })
+
+
   }
 })

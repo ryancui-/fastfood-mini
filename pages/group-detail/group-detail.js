@@ -14,8 +14,6 @@ Page({
     isOwner: false
   },
   loggingSuccessSubp: null,
-  refreshGroupDetailSubp: null,
-  runOnce: false,
   /**
    * 生命周期函数--监听页面加载
    */
@@ -26,14 +24,15 @@ Page({
 
     // TODO 这样会有两次请求，再优化
     this.loggingSuccessSubp = app.eventBus.on('LOGGING-SUCCESS', this.getGroupDetail.bind(this));
-    this.refreshGroupDetailSubp = app.eventBus.on('REFRESH-GROUP-DETAIL', this.getGroupDetail.bind(this));
+  },
+  onShow: function () {
+    this.getGroupDetail();
   },
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
     this.loggingSuccessSubp.off();
-    this.refreshGroupDetailSubp.off();
   },
   /**
    * 用户点击右上角分享
@@ -81,7 +80,7 @@ Page({
   },
 
   // 加载订单团信息
-  getGroupDetail: function (force) {
+  getGroupDetail: function () {
     if (!app.globalData.token) {
       return;
     }

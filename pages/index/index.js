@@ -14,6 +14,9 @@ Page({
   onUnload: function () {
     this.loggingSubs.off();
   },
+  onShow: function () {
+    this.listGroups();
+  },
   // 跳转到添加订单团
   navigateToAddGroup: function () {
     wx.navigateTo({
@@ -33,6 +36,10 @@ Page({
   },
   // 获取订单团信息
   listGroups: function () {
+    if (!app.globalData.token) {
+      return;
+    }
+
     wx.showLoading({
       title: '加载中',
       mask: true
