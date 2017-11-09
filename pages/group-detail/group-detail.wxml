@@ -1,11 +1,10 @@
 <!--pages/group-detail/group-detail.wxml-->
 <view class="container">
-  <view class="owner-panel" wx:if="{{isOwner}}">
-    <button type="primary" class="owner-btn" bindtap="setGroupFinish">完成此团</button>
-    <button type="warn" class="owner-btn" bindtap="setGroupCancel">取消此团</button>
-  </view>
-
   <view class="page-body">
+    <view class="owner-panel" wx:if="{{isOwner}}">
+      <button type="primary" class="owner-btn" bindtap="setGroupFinish">完成此团</button>
+      <button type="warn" class="owner-btn" bindtap="setGroupCancel">取消此团</button>
+    </view>
     <view class="order-item"
           wx:for="{{orders}}"
           wx:for-item="order"

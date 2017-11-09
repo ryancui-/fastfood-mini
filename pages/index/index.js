@@ -25,7 +25,10 @@ Page({
     const group = e.currentTarget.dataset.group;
 
     wx.navigateTo({
-      url: '/pages/group-detail/group-detail?id=' + group.id
+      url: '/pages/group-detail/group-detail?id=' + group.id,
+      success: () => {
+        app.eventBus.emit('REFRESH-GROUP-DETAIL');
+      }
     });
   },
   // 获取订单团信息
