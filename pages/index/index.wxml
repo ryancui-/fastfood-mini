@@ -7,13 +7,13 @@
           data-group="{{group}}"
           bindtap="navigateToGroup">
       <view class="group-row">
-        <image class="group-avatar" src="{{group.avatar_url}}"></image>
-        <text class="group-composer-name">{{group.composer.nickname}}</text>
-        <text class="group-total-price">￥{{group.totalPrice}}</text>
+        <image class="group-avatar" src="{{group.composer_avatar_url}}"></image>
+        <text class="group-composer-name">{{group.name}}</text>
+        <text class="group-total-price">￥{{group.total_price}}</text>
         <text class="group-status">征集中</text>
       </view>
       <view class="group-row">
-        {{group.dueTime}}
+        {{group.due_time}}
       </view>
     </view>
   </view>

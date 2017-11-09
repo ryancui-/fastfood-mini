@@ -1,5 +1,6 @@
 //app.js
 const host = require('./config').host;
+const EventBus = require('./pages/lib/event').EventBus;
 
 App({
   onLaunch: function () {
@@ -9,15 +10,16 @@ App({
     wx.checkSession({
       success: () => {
         //session 未过期，并且在本生命周期一直有效
-        console.log('Session valid.');
         that.globalData.token = wx.getStorageSync('token');
         that.globalData.userInfo = wx.getStorageSync('userInfo');
+        that.eventBus.emit('LOGGING-SUCCESS');
       },
       fail: () => {
         that.initLoginState();
       }
     });
   },
+  eventBus: new EventBus(),
   globalData: {
     token: '',
     userInfo: null
@@ -25,6 +27,11 @@ App({
   // 重新登录
   initLoginState: function () {
     const that = this;
+
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    });
 
     // 登录
     wx.login({
@@ -45,6 +52,9 @@ App({
                 wx.setStorageSync('userInfo', data.data.userInfo);
                 that.globalData.token = data.data.token;
                 that.globalData.userInfo = data.data.userInfo;
+
+                wx.hideLoading();
+                that.eventBus.emit('LOGGING-SUCCESS');
               }
             });
           },
