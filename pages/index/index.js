@@ -57,5 +57,16 @@ Page({
         wx.hideLoading();
       }
     })
+  },
+
+  formatStatus: function (status) {
+    switch (status) {
+      case 1:
+        return '征集中';
+      case 2:
+        return '已完成';
+      case 3:
+        return '已取消';
+    }
   }
 })

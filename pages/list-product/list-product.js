@@ -138,7 +138,6 @@ Page({
               'authorization': app.globalData.token
             },
             success: ({data}) => {
-              console.log(data.data);
               wx.hideLoading();
               wx.navigateBack();
             }

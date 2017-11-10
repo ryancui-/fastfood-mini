@@ -1,7 +1,7 @@
 <!--pages/group-detail/group-detail.wxml-->
 <view class="container">
   <view class="page-body">
-    <view class="owner-panel" wx:if="{{isOwner}}">
+    <view class="owner-panel" wx:if="{{isOwner && group.status === 1}}">
       <button type="primary" class="owner-btn" bindtap="setGroupFinish">完成此团</button>
       <button type="warn" class="owner-btn" bindtap="setGroupCancel">取消此团</button>
     </view>
@@ -18,7 +18,7 @@
     </view>
   </view>
 
-  <view class="page-foot" wx:if="{{!expired}}">
+  <view class="page-foot" wx:if="{{!expired && group.status === 1}}">
     <button type="primary" bindtap="navigateToAddOrder">看看有啥吃</button>
   </view>
 </view>

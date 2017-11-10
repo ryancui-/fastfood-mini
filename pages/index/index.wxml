@@ -10,7 +10,7 @@
         <image class="group-avatar" src="{{group.composer_avatar_url}}"></image>
         <text class="group-composer-name">{{group.name}}</text>
         <text class="group-total-price">￥{{group.total_price || 0}}</text>
-        <text class="group-status">征集中</text>
+        <text class="group-status">{{group.status === 1 ? '征集中' : (group.status === 2 ? '已完成' : '已取消')}}</text>
       </view>
       <view class="group-row">
         {{group.due_time}}

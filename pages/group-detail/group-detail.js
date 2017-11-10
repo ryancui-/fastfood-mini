@@ -9,6 +9,7 @@ Page({
    */
   data: {
     groupId: null,
+    group: null,
     orders: [],
     expired: true,
     isOwner: false
@@ -49,14 +50,35 @@ Page({
     const selectOrder = e.currentTarget.dataset.order;
     console.log(selectOrder);
 
+    // 过期订单团和非本人没有效果
+    if (this.data.expired || selectOrder.user_id !== app.globalData.userInfo.id) {
+      return;
+    }
+
     wx.showModal({
       title: '提示',
       content: `是否从该团中删除${selectOrder.product_name}`,
       success: (res) => {
         if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+          wx.showLoading({
+            title: '处理中',
+            mask: true
+          });
+
+          wx.request({
+            url: `${host}/api/order/remove`,
+            method: 'POST',
+            header: {
+              'authorization': app.globalData.token
+            },
+            data: {
+              id: selectOrder.id
+            },
+            success: ({data}) => {
+              wx.hideLoading();
+              this.getGroupDetail();
+            }
+          });
         }
       }
     });
@@ -64,12 +86,62 @@ Page({
 
   // 设置团组状态为已完成
   setGroupFinish: function () {
-
+    wx.showModal({
+      title: '提示',
+      content: `是否完成订单团`,
+      success: (res) => {
+        if (res.confirm) {
+          wx.request({
+            url: `${host}/api/group/status`,
+            method: 'POST',
+            header: {
+              'authorization': app.globalData.token
+            },
+            data: {
+              id: this.data.groupId,
+              status: 2
+            },
+            success: ({data}) => {
+              wx.showToast({
+                title: '操作成功',
+                icon: 'success',
+              });
+              this.getGroupDetail();
+            }
+          });
+        }
+      }
+    });
   },
 
   // 设置团组状态为已取消
   setGroupCancel: function () {
-
+    wx.showModal({
+      title: '提示',
+      content: `是否取消订单团`,
+      success: (res) => {
+        if (res.confirm) {
+          wx.request({
+            url: `${host}/api/group/status`,
+            method: 'POST',
+            header: {
+              'authorization': app.globalData.token
+            },
+            data: {
+              id: this.data.groupId,
+              status: 3
+            },
+            success: ({data}) => {
+              wx.showToast({
+                title: '操作成功',
+                icon: 'success',
+              });
+              this.getGroupDetail();
+            }
+          });
+        }
+      }
+    });
   },
 
   // 跳转到添加订单页面
@@ -97,7 +169,8 @@ Page({
       },
       success: ({data}) => {
         this.setData({
-          orders: data.data.orders
+          orders: data.data.orders,
+          group: data.data
         });
 
         // 是否过期
