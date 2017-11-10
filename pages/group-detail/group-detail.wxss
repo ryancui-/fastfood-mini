@@ -44,3 +44,9 @@
   color: red;
   font-size: 42rpx;
 }
+
+.no-records {
+  text-align: center;
+  margin-top: 50rpx;
+  color: #A9A9A9;
+}

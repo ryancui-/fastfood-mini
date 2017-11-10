@@ -30,3 +30,9 @@
   color: red;
   padding-right: 30rpx;
 }
+
+.no-records {
+  text-align: center;
+  margin-top: 50rpx;
+  color: #A9A9A9;
+}

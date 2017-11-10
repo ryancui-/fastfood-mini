@@ -1,6 +1,9 @@
 <!--index.wxml-->
 <view class="container">
   <view class="page-body">
+    <view wx:if="{{groups.length === 0}}" class="no-records">
+      暂无订单团
+    </view>
     <view class="group-item"
           wx:for="{{groups}}"
           wx:for-item="group"
